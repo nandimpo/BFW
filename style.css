@@ -314,3 +314,123 @@ html{
 }  
 }
 /*End of Section 1*/
+
+/* Section 2 */
+.section2 {
+    width: 100%;
+    min-height: 100vh;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5rem 10rem;
+}
+
+.section-heading {
+    font-family: 'Anton', sans-serif;
+    font-size: 10rem;
+    font-weight: 300;
+    color: #808080;
+    margin-bottom: 4rem;
+}
+
+.section-heading-line {
+    width: 7rem;
+    height: 0.2rem;
+    background-color: #808080;
+    margin-bottom: 2rem;
+}
+
+.video-wrapper {
+    width: 80rem;
+    height: 45rem;
+    position: relative;
+    box-shadow: 3rem 3rem 3rem rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+}
+
+.video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3;
+    transition: opacity 0.3s;
+}
+
+/* Controls hidden by default */
+.controls {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    transform: translateY(100%);
+    transition: transform 0.4s;
+    z-index: 2;
+}
+
+.video-wrapper:hover .controls {
+    transform: translateY(0);
+}
+
+.video-bar-wrapper {
+    width: 100%;
+    height: 0.9rem;
+    background-color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+}
+
+.video-bar {
+    height: 100%;
+    width: 0;
+    background-color: #808080;
+    transition: width 0.2s linear;
+}
+
+.buttons {
+    padding: 2rem 1rem 1rem 1rem;
+    text-align: center;
+}
+
+.buttons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.buttons i {
+    font-size: 2.8rem;
+    color: white;
+}
+
+/* Paragraph section below video */
+.section-2-paragraph {
+    width: 80rem;
+    margin-top: 4rem;
+    font-size: 2rem;
+    color: white;
+    border-top: 0.3rem double #808080;
+    border-bottom: 0.3rem double #808080;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: justify;
+    text-shadow: 1rem 1rem 2rem rgba(0, 0, 0, 0.7);
+    line-height: 2;
+}
+
+.fa-quote-left {
+    align-self: flex-start;
+    font-size: 4rem;
+    margin-bottom: 2rem;
+}
+
+.fa-quote-right {
+    align-self: flex-end;
+    font-size: 4rem;
+}
+
