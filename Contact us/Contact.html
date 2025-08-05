@@ -3,9 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Contact Us - BFW</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../CSS/contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 </head>
 <body>
-    
+
+    <!-- NavBar -->
+     <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html">
+                <span>Braam</span><span>Fashion</span><span>Week</span>
+            </a>
+        </div>
+        <div class="nav-list"> 
+            <a href="../index.html" class="nav-link">Home</a>
+            <a href="#" class="nav-link">About</a>
+            <a href="#" class="nav-link">Applications</a>
+            <a href="#" class="nav-link">Blog</a>
+            <a href="Contact.html" class="nav-link">Contact</a>
+        </div>
+     </nav>
+     <!--End of NavBar -->
+
+     <!-- Menu -->
+      <div class="menu"> 
+        <div class="line line-1"></div>
+        <div class="line line-2"></div>
+        <div class="line line-3"></div>
+      </div>
+    <!-- End of Menu -->
+
+   <div class="container">
+    <!-- Contact Section -->
+     <section class="contact-section">
+        <div class="contact-container">
+            <!-- Contact Info Cards -->
+            <div class="contact-info-cards">
+                <div class="info-card">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>PHONE</h3>
+                    <p>+27 62 143 6795</p>
+                    <p>+27 72 838 4375</p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>ADDRESS</h3>
+                    <p>73 Juta Street Braamfontein</p>
+                    
+                </div>
+                
+                <div class="info-card">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>EMAIL</h3>
+                    <p>braamfashionweek24@gmail.com</p>
+                
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="contact-main">
+                <div class="contact-left">
+                    <h1 class="contact-title">Contact</h1>
+                </div>
+                
+                <div class="contact-right">
+                    <h2 class="form-title">GET IN TOUCH</h2>
+                    <form id="contactForm" class="contact-form">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                        <button type="submit" class="send-btn">SEND MESSAGE</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+     </section>
+    <!-- End of Contact Section --> 
+   </div>
+
+    <script src="../script.js"></script>
+    <script src="../Javascript/Contact.js"></script>
 </body>
 </html>
