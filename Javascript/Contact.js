@@ -1,5 +1,14 @@
+// EmailJS Configuration
+// Replace these with your actual EmailJS credentials from your dashboard
+const EMAILJS_PUBLIC_KEY = 'mt1qmNzZCtYXdR25w';      // Get from EmailJS Account → General → Public Key
+const EMAILJS_SERVICE_ID = 'service_po4sj8i';      // Get from EmailJS Email Services
+const EMAILJS_TEMPLATE_ID = 'template_w1efp71';    // Get from EmailJS Email Templates
+
 // Contact form handling
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize EmailJS
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+    
     const contactForm = document.getElementById('contactForm');
     const nameInput = document.getElementById('name');
     const emailInput = document.getElementById('email');
@@ -24,12 +33,28 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show loading state
         showLoadingState();
         
-        // Simulate form submission (replace with actual API call)
-        setTimeout(() => {
-            showSuccessMessage();
-            resetForm();
-            hideLoadingState();
-        }, 2000);
+        // Prepare email parameters for EmailJS
+        const templateParams = {
+            from_name: name,
+            from_email: email,
+            reply_to: email,
+            message: message,
+            subject: 'Contact Form Submission'
+        };
+        
+        // Send email using EmailJS
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+            .then(function(response) {
+                console.log('Email sent successfully!', response.status, response.text);
+                hideLoadingState();
+                showSuccessMessage();
+                resetForm();
+            })
+            .catch(function(error) {
+                console.error('Email failed to send:', error);
+                hideLoadingState();
+                showErrorMessage('Failed to send message. Please try again or contact us directly.');
+            });
     });
 
     // Form validation function
@@ -71,6 +96,10 @@ document.addEventListener('DOMContentLoaded', function() {
             showFieldError(messageInput, 'Message must be at least 10 characters');
             errorMessage += 'Message must be at least 10 characters long.\n';
             isValid = false;
+        } else if (message.length > 500) {
+            showFieldError(messageInput, 'Message is too long (max 500 characters)');
+            errorMessage += 'Message must be less than 500 characters.\n';
+            isValid = false;
         }
 
         // Show error message if validation fails
@@ -108,62 +137,93 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Show error message
     function showErrorMessage(message) {
-        // Create or update error message element
-        let errorDiv = document.querySelector('.error-message');
-        if (!errorDiv) {
-            errorDiv = document.createElement('div');
-            errorDiv.className = 'error-message';
-            errorDiv.style.cssText = `
-                background-color: #ff4444;
-                color: white;
-                padding: 1rem 2rem;
-                border-radius: 0.5rem;
-                margin-bottom: 2rem;
-                font-size: 1.4rem;
-                line-height: 1.4;
-                white-space: pre-line;
-            `;
-            contactForm.insertBefore(errorDiv, contactForm.firstChild);
-        }
+        // Remove any existing messages first
+        removeExistingMessages();
+        
+        // Create error message element
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.style.cssText = `
+            background-color: #ff4444;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            font-size: 1.4rem;
+            line-height: 1.4;
+            white-space: pre-line;
+            animation: slideIn 0.3s ease-out;
+        `;
         errorDiv.textContent = message;
-        errorDiv.style.display = 'block';
+        contactForm.insertBefore(errorDiv, contactForm.firstChild);
 
-        // Auto-hide after 5 seconds
+        // Scroll to error message
+        errorDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        // Auto-hide after 8 seconds
         setTimeout(() => {
-            if (errorDiv) {
-                errorDiv.style.display = 'none';
+            if (errorDiv && errorDiv.parentNode) {
+                errorDiv.style.opacity = '0';
+                errorDiv.style.transition = 'opacity 0.3s ease-out';
+                setTimeout(() => {
+                    if (errorDiv.parentNode) {
+                        errorDiv.parentNode.removeChild(errorDiv);
+                    }
+                }, 300);
             }
-        }, 5000);
+        }, 8000);
     }
 
     // Show success message
     function showSuccessMessage() {
+        // Remove any existing messages first
+        removeExistingMessages();
+        
         // Create success message element
-        let successDiv = document.querySelector('.success-message');
-        if (!successDiv) {
-            successDiv = document.createElement('div');
-            successDiv.className = 'success-message';
-            successDiv.style.cssText = `
-                background-color: #4CAF50;
-                color: white;
-                padding: 1.5rem 2rem;
-                border-radius: 0.5rem;
-                margin-bottom: 2rem;
-                font-size: 1.6rem;
-                text-align: center;
-                font-weight: bold;
-            `;
-            contactForm.insertBefore(successDiv, contactForm.firstChild);
-        }
-        successDiv.textContent = '✓ Thank you for your message! We will get back to you soon.';
-        successDiv.style.display = 'block';
+        const successDiv = document.createElement('div');
+        successDiv.className = 'success-message';
+        successDiv.style.cssText = `
+            background-color: #4CAF50;
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            font-size: 1.6rem;
+            text-align: center;
+            font-weight: bold;
+            animation: slideIn 0.3s ease-out;
+        `;
+        successDiv.innerHTML = '✓ Thank you for your message!<br>We will get back to you soon.';
+        contactForm.insertBefore(successDiv, contactForm.firstChild);
 
-        // Auto-hide after 5 seconds
+        // Scroll to success message
+        successDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        // Auto-hide after 8 seconds
         setTimeout(() => {
-            if (successDiv) {
-                successDiv.style.display = 'none';
+            if (successDiv && successDiv.parentNode) {
+                successDiv.style.opacity = '0';
+                successDiv.style.transition = 'opacity 0.3s ease-out';
+                setTimeout(() => {
+                    if (successDiv.parentNode) {
+                        successDiv.parentNode.removeChild(successDiv);
+                    }
+                }, 300);
             }
-        }, 5000);
+        }, 8000);
+    }
+
+    // Remove existing messages
+    function removeExistingMessages() {
+        const existingError = document.querySelector('.error-message');
+        const existingSuccess = document.querySelector('.success-message');
+        
+        if (existingError && existingError.parentNode) {
+            existingError.parentNode.removeChild(existingError);
+        }
+        if (existingSuccess && existingSuccess.parentNode) {
+            existingSuccess.parentNode.removeChild(existingSuccess);
+        }
     }
 
     // Show loading state
@@ -172,6 +232,24 @@ document.addEventListener('DOMContentLoaded', function() {
         sendBtn.style.opacity = '0.7';
         sendBtn.textContent = 'SENDING...';
         sendBtn.style.cursor = 'not-allowed';
+        
+        // Add loading animation
+        sendBtn.style.position = 'relative';
+        sendBtn.innerHTML = `
+            <span style="opacity: 0.7;">SENDING...</span>
+            <div style="
+                position: absolute;
+                right: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 16px;
+                height: 16px;
+                border: 2px solid transparent;
+                border-top: 2px solid white;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            "></div>
+        `;
     }
 
     // Hide loading state
@@ -180,18 +258,15 @@ document.addEventListener('DOMContentLoaded', function() {
         sendBtn.style.opacity = '1';
         sendBtn.textContent = 'SEND MESSAGE';
         sendBtn.style.cursor = 'pointer';
+        sendBtn.innerHTML = 'SEND MESSAGE';
     }
 
     // Reset form
     function resetForm() {
         contactForm.reset();
         resetErrorStates();
-        
-        // Hide any existing messages
-        const errorDiv = document.querySelector('.error-message');
-        if (errorDiv) {
-            errorDiv.style.display = 'none';
-        }
+        removeExistingMessages();
+        updateCharCounter(); // Update character counter after reset
     }
 
     // Add input event listeners for real-time validation feedback
@@ -217,9 +292,10 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.boxShadow = '';
             this.classList.remove('error');
         }
+        updateCharCounter();
     });
 
-    // Add smooth scroll effect for form focus
+    // Add smooth focus effects for form inputs
     const formInputs = document.querySelectorAll('.contact-form input, .contact-form textarea');
     formInputs.forEach(input => {
         input.addEventListener('focus', function() {
@@ -237,38 +313,94 @@ document.addEventListener('DOMContentLoaded', function() {
     iconWrappers.forEach(wrapper => {
         wrapper.addEventListener('mouseenter', function() {
             const icon = this.querySelector('i');
-            icon.style.transform = 'scale(1.1) rotate(5deg)';
-            icon.style.transition = 'all 0.3s ease';
+            if (icon) {
+                icon.style.transform = 'scale(1.1) rotate(5deg)';
+                icon.style.transition = 'all 0.3s ease';
+            }
         });
 
         wrapper.addEventListener('mouseleave', function() {
             const icon = this.querySelector('i');
-            icon.style.transform = 'scale(1) rotate(0deg)';
+            if (icon) {
+                icon.style.transform = 'scale(1) rotate(0deg)';
+            }
         });
     });
 
     // Character counter for message field
     const maxLength = 500;
     const charCounter = document.createElement('div');
+    charCounter.className = 'char-counter';
     charCounter.style.cssText = `
         color: #808080;
         font-size: 1.2rem;
         text-align: right;
         margin-top: 0.5rem;
+        transition: color 0.3s ease;
     `;
-    charCounter.textContent = `0/${maxLength}`;
     messageInput.parentNode.insertBefore(charCounter, messageInput.nextSibling);
 
-    messageInput.addEventListener('input', function() {
-        const currentLength = this.value.length;
+    // Update character counter function
+    function updateCharCounter() {
+        const currentLength = messageInput.value.length;
         charCounter.textContent = `${currentLength}/${maxLength}`;
         
-        if (currentLength > maxLength * 0.9) {
+        if (currentLength > maxLength) {
             charCounter.style.color = '#ff4444';
+            charCounter.style.fontWeight = 'bold';
+        } else if (currentLength > maxLength * 0.9) {
+            charCounter.style.color = '#ff4444';
+            charCounter.style.fontWeight = 'normal';
         } else if (currentLength > maxLength * 0.7) {
             charCounter.style.color = '#ffaa00';
+            charCounter.style.fontWeight = 'normal';
         } else {
             charCounter.style.color = '#808080';
+            charCounter.style.fontWeight = 'normal';
         }
-    });
+    }
+
+    // Initialize character counter
+    updateCharCounter();
+
+    // Add CSS animations
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes spin {
+            from { transform: translateY(-50%) rotate(0deg); }
+            to { transform: translateY(-50%) rotate(360deg); }
+        }
+        
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+        
+        .contact-form input.error:focus,
+        .contact-form textarea.error:focus {
+            border-color: #ff4444;
+            box-shadow: 0 0 0 2px rgba(255, 68, 68, 0.3);
+        }
+    `;
+    document.head.appendChild(style);
+});
+
+// Error handling for EmailJS initialization
+window.addEventListener('error', function(e) {
+    if (e.message.includes('emailjs')) {
+        console.error('EmailJS failed to load. Please check your internet connection and EmailJS configuration.');
+    }
 });

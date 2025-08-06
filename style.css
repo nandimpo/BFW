@@ -315,14 +315,11 @@ html{
 }
 /*End of Section 1*/
 
-/* Section 2 */
+/* Section 2 - About Us */
 .section2 {
     width: 100%;
     min-height: 100vh;
     background-color: black;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
     padding: 5rem 10rem;
 }
 
@@ -331,30 +328,44 @@ html{
     font-size: 10rem;
     font-weight: 300;
     color: #808080;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
 }
 
 .section-heading-line {
     width: 7rem;
     height: 0.2rem;
     background-color: #808080;
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
+}
+
+/* Container for video and paragraph side by side */
+.about-content {
+    display: flex;
+    gap: 5rem;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .video-wrapper {
-    width: 80rem;
-    height: 45rem;
+    width: 50rem;
+    height: 28rem;
     position: relative;
     box-shadow: 3rem 3rem 3rem rgba(0, 0, 0, 0.7);
     overflow: hidden;
+    flex-shrink: 0;
 }
 
 .video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.3;
+    opacity: 0.8;
     transition: opacity 0.3s;
+}
+
+.video:hover {
+    opacity: 1;
 }
 
 /* Controls hidden by default */
@@ -398,6 +409,11 @@ html{
     background: none;
     border: none;
     cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.buttons button:hover {
+    transform: scale(1.1);
 }
 
 .buttons i {
@@ -405,32 +421,102 @@ html{
     color: white;
 }
 
-/* Paragraph section below video */
-.section-2-paragraph {
-    width: 80rem;
-    margin-top: 4rem;
-    font-size: 2rem;
-    color: white;
-    border-top: 0.3rem double #808080;
-    border-bottom: 0.3rem double #808080;
-    padding: 2rem;
+/* About text section */
+.about-text {
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    min-height: 28rem;
+}
+
+.section-2-paragraph {
+    font-size: 1.8rem;
+    color: white;
+    border-top: 0.3rem double #808080;
+    border-bottom: 0.3rem double #808080;
+    padding: 3rem 2rem;
     text-align: justify;
     text-shadow: 1rem 1rem 2rem rgba(0, 0, 0, 0.7);
-    line-height: 2;
+    line-height: 1.8;
+    position: relative;
+    background-color: rgba(128, 128, 128, 0.05);
+    border-radius: 1rem;
 }
 
 .fa-quote-left {
-    align-self: flex-start;
-    font-size: 4rem;
+    font-size: 3rem;
+    color: #808080;
     margin-bottom: 2rem;
+    display: block;
 }
 
 .fa-quote-right {
-    align-self: flex-end;
-    font-size: 4rem;
+    font-size: 3rem;
+    color: #808080;
+    margin-top: 2rem;
+    display: block;
+    text-align: right;
 }
 
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+    .section2 {
+        padding: 5rem 5rem;
+    }
+    
+    .about-content {
+        gap: 3rem;
+    }
+    
+    .video-wrapper {
+        width: 45rem;
+        height: 25rem;
+    }
+    
+    .section-2-paragraph {
+        font-size: 1.6rem;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .about-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 4rem;
+    }
+    
+    .video-wrapper {
+        width: 100%;
+        max-width: 60rem;
+        height: 35rem;
+    }
+    
+    .about-text {
+        width: 100%;
+        min-height: auto;
+    }
+    
+    .section-2-paragraph {
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .section2 {
+        padding: 3rem 2rem;
+    }
+    
+    .section-heading {
+        font-size: 6rem;
+    }
+    
+    .video-wrapper {
+        height: 25rem;
+    }
+    
+    .section-2-paragraph {
+        font-size: 1.4rem;
+        padding: 2rem 1.5rem;
+    }
+}
