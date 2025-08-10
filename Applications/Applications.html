@@ -3,9 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>BFW - Applications</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../CSS/applications.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
-    
+    <!-- NavBar -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="">
+                <span>Braam</span><span>Fashion</span><span>Week</span>
+            </a>
+        </div>
+        <div class="nav-list">
+            <a href="../index.html" class="nav-link">Home</a>
+            <a href="../index.html" class="nav-link">About</a>
+            <a href="../Applications/Applications.html" class="nav-link">Applications</a>
+            <a href="../Blogs/Blogs.html" class="nav-link">Blog</a>
+            <a href="../Contact us/Contact.html" class="nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Applications Section -->
+        <section class="applications-section">
+            <h1 class="section-heading">Applications</h1>
+            <div class="section-heading-line"></div>
+            <p class="intro-text">
+                Join the future of African fashion! Apply to showcase your talent at Braam Fashion Week 2024. 
+                Whether you're a designer ready to present your collection or a model looking to walk our runway, 
+                we want to see what you bring to the world of fashion.
+            </p>
+
+            <div class="application-cards">
+                <!-- Designer Application -->
+                <div class="application-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h2 class="card-title">Designer Application</h2>
+                        <p class="card-subtitle">Showcase your collection on our runway</p>
+                    </div>
+
+                    <form class="application-form" id="designerForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="designer-name">Full Name *</label>
+                                <input type="text" id="designer-name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="designer-email">Email Address *</label>
+                                <input type="email" id="designer-email" name="email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="designer-phone">Phone Number *</label>
+                                <input type="tel" id="designer-phone" name="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="brand-name">Brand Name *</label>
+                                <input type="text" id="brand-name" name="brand" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="designer-experience">Years of Experience *</label>
+                            <select id="designer-experience" name="experience" required>
+                                <option value="">Select experience level</option>
+                                <option value="0-1">0-1 years (Emerging)</option>
+                                <option value="2-5">2-5 years (Developing)</option>
+                                <option value="6-10">6-10 years (Established)</option>
+                                <option value="10+">10+ years (Veteran)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="design-style">Design Style/Aesthetic *</label>
+                            <textarea id="design-style" name="style" placeholder="Describe your unique design style and aesthetic..." required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="collection-theme">Collection Theme *</label>
+                            <input type="text" id="collection-theme" name="theme" placeholder="What's the theme of your collection?" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="designer-portfolio">Portfolio/Lookbook</label>
+                            <div class="file-input-wrapper">
+                                <input type="file" id="designer-portfolio" name="portfolio" class="file-input" accept=".pdf,.jpg,.jpeg,.png" multiple>
+                                <button type="button" class="file-input-button" onclick="document.getElementById('designer-portfolio').click()">
+                                    <i class="fas fa-upload"></i> Upload Portfolio
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="designer-motivation">Why Braam Fashion Week? *</label>
+                            <textarea id="designer-motivation" name="motivation" placeholder="Tell us why you want to be part of Braam Fashion Week..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            Submit Designer Application
+                        </button>
+
+                        <div class="message" id="designerMessage"></div>
+                    </form>
+                </div>
+
+                <!-- Model Application -->
+                <div class="application-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <h2 class="card-title">Model Application</h2>
+                        <p class="card-subtitle">Walk the runway and represent African fashion</p>
+                    </div>
+
+                    <form class="application-form" id="modelForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="model-name">Full Name *</label>
+                                <input type="text" id="model-name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="model-email">Email Address *</label>
+                                <input type="email" id="model-email" name="email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="model-phone">Phone Number *</label>
+                                <input type="tel" id="model-phone" name="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="model-age">Age *</label>
+                                <input type="number" id="model-age" name="age" min="16" max="65" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="model-height">Height (cm) *</label>
+                                <input type="number" id="model-height" name="height" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="model-measurements">Measurements *</label>
+                                <input type="text" id="model-measurements" name="measurements" placeholder="Bust-Waist-Hips" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="model-experience">Modeling Experience *</label>
+                                <select id="model-experience" name="experience" required>
+                                    <option value="">Select experience level</option>
+                                    <option value="beginner">Beginner (0-1 years)</option>
+                                    <option value="intermediate">Intermediate (2-4 years)</option>
+                                    <option value="experienced">Experienced (5+ years)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="model-location">Current Location *</label>
+                                <input type="text" id="model-location" name="location" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="model-photos">Professional Photos/Portfolio</label>
+                            <div class="file-input-wrapper">
+                                <input type="file" id="model-photos" name="photos" class="file-input" accept=".jpg,.jpeg,.png" multiple>
+                                <button type="button" class="file-input-button" onclick="document.getElementById('model-photos').click()">
+                                    <i class="fas fa-camera"></i> Upload Photos
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="special-skills">Special Skills/Talents</label>
+                            <textarea id="special-skills" name="skills" placeholder="Dance, acrobatics, unique walk style, etc."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="model-motivation">Why do you want to model for BFW? *</label>
+                            <textarea id="model-motivation" name="motivation" placeholder="Share your passion for fashion and modeling..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            Submit Model Application
+                        </button>
+
+                        <div class="message" id="modelMessage"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
